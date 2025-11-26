@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ConvTool</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>ConvTool</h1>
+    <p class="subtitle">간편한 이미지 변환 도구</p>
+
+    <div class="upload-box">
+        <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="buttons">
+        <button onclick="convertToJPG()">PNG → JPG</button>
+        <button onclick="convertToWEBP()">PNG → WEBP</button>
+        <button onclick="resizeImage()">이미지 리사이즈</button>
+        <button onclick="convertToPDF()">이미지 → PDF</button>
+    </div>
+
+    <a id="downloadLink" style="display:none;" download>📥 결과 다운로드</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

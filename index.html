@@ -1,136 +1,33 @@
-// 공통: 파일 가져오기 함수
-function getSelectedFile() {
-    const file = document.getElementById("fileInput").files[0];
-    if (!file) {
-        alert("이미지를 선택해주세요!");
-        return null;
-    }
-    return file;
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ConvTool</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>ConvTool</h1>
+    <p class="subtitle">간편한 이미지 변환 도구</p>
 
-// ===============================
-// 1) PNG → JPG
-// ===============================
-function convertToJPG() {
-    const file = getSelectedFile();
-    if (!file) return;
+    <div class="upload-box">
+        <input type="file" id="fileInput" accept="image/*">
+    </div>
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    <div class="buttons">
+        <button onclick="convertToJPG()">PNG → JPG</button>
+        <button onclick="convertToWEBP()">PNG → WEBP</button>
+        <button onclick="resizeImage()">이미지 리사이즈</button>
+        <button onclick="convertToPDF()">이미지 → PDF</button>
+    </div>
 
-    reader.onload = function(e) {
-        const img = new Image();
-        img.src = e.target.result;
+    <a id="downloadLink" style="display:none;" download>📥 결과 다운로드</a>
+</div>
 
-        img.onload = function() {
-            const canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-
-            const result = canvas.toDataURL("image/jpeg");
-            triggerDownload(result, "converted.jpg");
-        };
-    };
-}
-
-// ===============================
-// 2) PNG → WEBP
-// ===============================
-function convertToWEBP() {
-    const file = getSelectedFile();
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = function(e) {
-        const img = new Image();
-        img.src = e.target.result;
-
-        img.onload = function() {
-            const canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-
-            const result = canvas.toDataURL("image/webp");
-            triggerDownload(result, "converted.webp");
-        };
-    };
-}
-
-// ===============================
-// 3) 이미지 리사이즈 (가로 800px 고정)
-// ===============================
-function resizeImage() {
-    const file = getSelectedFile();
-    if (!file) return;
-
-    const newWidth = 800; // 원하는 크기
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = function(e) {
-        const img = new Image();
-        img.src = e.target.result;
-
-        img.onload = function() {
-            const scale = newWidth / img.width;
-            const newHeight = img.height * scale;
-
-            const canvas = document.createElement("canvas");
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, newWidth, newHeight);
-
-            const result = canvas.toDataURL("image/png");
-            triggerDownload(result, "resized.png");
-        };
-    };
-}
-
-// ===============================
-// 4) 이미지 → PDF (jsPDF CDN 자동 삽입 필요함)
-// ===============================
-function convertToPDF() {
-    const file = getSelectedFile();
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = async function(e) {
-        const img = new Image();
-        img.src = e.target.result;
-
-        img.onload = function() {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF();
-
-            const imgWidth = 180;
-            const imgHeight = (img.height * imgWidth) / img.width;
-
-            pdf.addImage(img, "PNG", 15, 15, imgWidth, imgHeight);
-            pdf.save("image.pdf");
-        };
-    };
-}
-
-// ===============================
-// 다운로드 기능
-// ===============================
-function triggerDownload(dataURL, filename) {
-    const link = document.getElementById("downloadLink");
-    link.href = dataURL;
-    link.download = filename;
-    link.style.display = "block";
-    link.click();
-}
+<!-- main.js -->
+<script src="js/main.js"></script>
+</body>
+</html>

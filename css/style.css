@@ -1,30 +1,14 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f4f8ff; /* 파스텔 배경 */
+    background: #f4f8ff;
     margin: 0;
     padding: 0;
 }
-
 .container {
     max-width: 480px;
     margin: 50px auto;
     text-align: center;
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
-
-h1 {
-    margin-top: 0;
-    color: #4a78ff;
-}
-
-.subtitle {
-    color: #666;
-    margin-top: -10px;
-}
-
 button {
     padding: 12px 20px;
     margin: 5px;
@@ -35,12 +19,6 @@ button {
     color: white;
     font-size: 15px;
 }
-
 .upload-box {
-    margin: 20px 0;
-}
-
-/* 광고 박스 여백 */
-.ad-box {
     margin: 20px 0;
 }

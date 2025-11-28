@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f8ff;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 480px;
+    margin: 50px auto;
+    text-align: center;
+}
+button {
+    padding: 12px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #4a78ff;
+    color: white;
+    font-size: 15px;
+}
+.upload-box {
+    margin: 20px 0;
+}

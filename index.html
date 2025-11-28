@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConvTool</title>
 
-    <!-- CSS 적용 -->
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- AdSense 코드 -->
+    <!-- AdSense -->
     <script async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6998063928409116"
         crossorigin="anonymous"></script>
@@ -33,11 +33,23 @@
             </script>
         </div>
 
+        <!-- 파일 업로드 -->
         <div class="upload-box">
             <input type="file" id="fileInput" accept="image/*">
         </div>
 
+        <!-- 버튼 -->
+        <div class="btn-group">
+            <button onclick="convertToJPG()">PNG → JPG</button>
+            <button onclick="convertToWEBP()">PNG → WEBP</button>
+            <button onclick="resizeImage()">이미지 리사이즈</button>
+            <button onclick="convertToPDF()">이미지 → PDF</button>
+        </div>
+
+        <!-- 결과 다운로드 -->
+        <div id="result"></div>
     </div>
 
+    <script src="js/main.js"></script>
 </body>
 </html>

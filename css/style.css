@@ -4,11 +4,26 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .container {
     max-width: 480px;
     margin: 50px auto;
     text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
+
+h1 {
+    color: #4a78ff;
+}
+
+.subtitle {
+    color: #6c7b99;
+    margin-bottom: 20px;
+}
+
 button {
     padding: 12px 20px;
     margin: 5px;
@@ -18,7 +33,18 @@ button {
     background: #4a78ff;
     color: white;
     font-size: 15px;
+    transition: 0.2s;
 }
+
+button:hover {
+    background: #345de3;
+}
+
 .upload-box {
     margin: 20px 0;
+}
+
+.ad-box {
+    margin: 20px 0;
+    text-align: center;
 }

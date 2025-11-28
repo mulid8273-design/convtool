@@ -1,27 +1,27 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConvTool</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS 경로 수정됨!! -->
+    <link rel="stylesheet" href="css/style.css">
 
-    <!-- AdSense -->
+    <!-- Google AdSense -->
     <script async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6998063928409116"
         crossorigin="anonymous"></script>
 </head>
 
 <body>
-
     <div class="container">
         <h1>ConvTool</h1>
         <p class="subtitle">간편한 이미지 변환 도구</p>
 
-        <!-- 광고 -->
-        <div class="ad-box">
+        <!-- 광고 위치 -->
+        <div style="margin: 20px 0; text-align:center;">
             <ins class="adsbygoogle"
                 style="display:block"
                 data-ad-client="ca-pub-6998063928409116"
@@ -33,23 +33,17 @@
             </script>
         </div>
 
-        <!-- 파일 업로드 -->
         <div class="upload-box">
             <input type="file" id="fileInput" accept="image/*">
         </div>
 
-        <!-- 버튼 -->
-        <div class="btn-group">
-            <button onclick="convertToJPG()">PNG → JPG</button>
-            <button onclick="convertToWEBP()">PNG → WEBP</button>
-            <button onclick="resizeImage()">이미지 리사이즈</button>
-            <button onclick="convertToPDF()">이미지 → PDF</button>
-        </div>
-
-        <!-- 결과 다운로드 -->
-        <div id="result"></div>
+        <button onclick="convertToJpg()">PNG → JPG</button>
+        <button onclick="convertToWebp()">PNG → WEBP</button>
+        <button onclick="resizeImage()">이미지 리사이즈</button>
+        <button onclick="imageToPdf()">이미지 → PDF</button>
     </div>
 
     <script src="js/main.js"></script>
 </body>
+
 </html>

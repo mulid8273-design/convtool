@@ -1,79 +1,50 @@
-const fileInput = document.getElementById("fileInput");
-const downloadLink = document.getElementById("downloadLink");
-
-function loadImage() {
-    return new Promise((resolve, reject) => {
-        const file = fileInput.files[0];
-        if (!file) return reject("파일 없음");
-
-        const img = new Image();
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-        img.src = URL.createObjectURL(file);
-    });
+function downloadFile(url, filename) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
 }
 
-async function convertToJPG() {
-    const img = await loadImage();
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    canvas.getContext("2d").drawImage(img, 0, 0);
+function convertToJPG() {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) return alert("파일을 선택하세요!");
 
-    const url = canvas.toDataURL("image/jpeg", 0.9);
-    downloadLink.href = url;
-    downloadLink.download = "converted.jpg";
-    downloadLink.style.display = "block";
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((blob) => {
+            downloadFile(URL.createObjectURL(blob), "converted.jpg");
+        }, "image/jpeg", 0.9);
+    };
 }
 
-async function convertToWEBP() {
-    const img = await loadImage();
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    canvas.getContext("2d").drawImage(img, 0, 0);
+function convertToWEBP() {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) return alert("파일을 선택하세요!");
 
-    const url = canvas.toDataURL("image/webp", 0.9);
-    downloadLink.href = url;
-    downloadLink.download = "converted.webp";
-    downloadLink.style.display = "block";
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((blob) => {
+            downloadFile(URL.createObjectURL(blob), "converted.webp");
+        }, "image/webp", 0.9);
+    };
 }
 
-async function resizeImage() {
-    const img = await loadImage();
-    const scale = 0.5; 
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width * scale;
-    canvas.height = img.height * scale;
-    canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-
-    const url = canvas.toDataURL("image/png");
-    downloadLink.href = url;
-    downloadLink.download = "resized.png";
-    downloadLink.style.display = "block";
+function resizeImage() {
+    alert("리사이즈 기능은 다음 업데이트에서 추가됩니다!");
 }
 
-async function convertToPDF() {
-    const img = await loadImage();
-    const { jsPDF } = window.jspdf;
-
-    const pdf = new jsPDF("p", "mm", "a4");
-    const width = 190;
-    const ratio = img.height / img.width;
-    const height = width * ratio;
-
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    canvas.getContext("2d").drawImage(img, 0, 0);
-
-    const imgData = canvas.toDataURL("image/png");
-
-    pdf.addImage(imgData, "PNG", 10, 10, width, height);
-    const pdfBlob = pdf.output("blob");
-
-    const pdfUrl = URL.createObjectURL(pdfBlob);
-    downloadLink.href = pdfUrl;
-    downloadLink.download = "converted.pdf";
-    downloadLink.style.display = "block";
+function convertToPDF() {
+    alert("PDF 변환 기능은 다음 업데이트에서 추가됩니다!");
 }

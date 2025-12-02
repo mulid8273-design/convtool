@@ -1,1 +1,68 @@
-body{background:#fafafa;font-family:sans-serif;}
+/* 기본 폰트 & 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #333;
+    padding: 40px 20px;
+}
+
+/* 헤더 */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #4b5fc0;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+    color: #5f6b82;
+}
+
+/* 메인 영역 */
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tool-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #4b5fc0;
+    text-decoration: none;
+    transition: 0.25s ease;
+    border: 2px solid transparent;
+}
+
+.tool-card:hover {
+    background: #e5ecff;
+    transform: translateY(-4px);
+    border-color: #7b8cff;
+}
+
+/* 푸터 */
+footer {
+    margin-top: 60px;
+    text-align: center;
+    color: #7f8ca8;
+    font-size: 14px;
+}

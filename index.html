@@ -1,30 +1,142 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConvTool</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConvTool - 간단한 이미지 변환기</title>
+
+    <style>
+        body {
+            font-family: "Pretendard", sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: #4f7df9;
+            color: white;
+            padding: 30px 20px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        .container {
+            margin: 40px auto;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .tool-btn {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            border-color: #4f7df9;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: #777;
+            padding-bottom: 20px;
+        }
+
+        /* 숨겨진 input */
+        .hidden {
+            display: none;
+        }
+
+        #resultMessage {
+            margin-top: 20px;
+            color: #4f7df9;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
 
+    <header>
+        ConvTool
+        <div class="subtitle">간단하고 빠른 이미지 변환 도구</div>
+    </header>
+
     <div class="container">
-        <h1>ConvTool</h1>
-        <p class="subtitle">간단하고 빠른 이미지 변환 도구</p>
-
-        <h2 class="tool-title">PNG → JPG 변환</h2>
-
-        <button id="pngToJpgBtn" class="button">이미지 선택하기</button>
-        <input type="file" id="pngInput" accept="image/png" style="display:none">
-
-        <p id="resultMessage" class="result"></p>
+        <div class="tool-btn" id="pngToJpgBtn">PNG → JPG</div>
+        <div class="tool-btn">PNG → WEBP (준비중)</div>
+        <div class="tool-btn">이미지 리사이즈 (준비중)</div>
+        <div class="tool-btn">이미지 → PDF (준비중)</div>
     </div>
 
     <footer>
         © 2025 ConvTool. All rights reserved.
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- 숨겨진 파일 업로드 -->
+    <input type="file" accept="image/png" id="pngInput" class="hidden">
+
+    <div id="resultMessage"></div>
+
+    <script>
+        console.log("main.js built-in version loaded");
+
+        // PNG → JPG 실행
+        document.getElementById("pngToJpgBtn").addEventListener("click", () => {
+            document.getElementById("pngInput").click();
+        });
+
+        // 변환 처리
+        document.getElementById("pngInput").addEventListener("change", function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            if (file.type !== "image/png") {
+                alert("PNG 파일만 업로드 가능합니다!");
+                return;
+            }
+
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0);
+
+                // JPG 변환
+                canvas.toBlob((blob) => {
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = file.name.replace(".png", ".jpg");
+                    link.click();
+                }, "image/jpeg", 0.9);
+
+                document.getElementById("resultMessage").innerText =
+                    "변환 완료! JPG 파일이 다운로드되었습니다.";
+            };
+        });
+    </script>
 
 </body>
 </html>

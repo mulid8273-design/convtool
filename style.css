@@ -1,0 +1,7 @@
+body { font-family: sans-serif; background:#f8f7ff; margin:0; padding:0; text-align:center;}
+header { padding:30px 10px;}
+.container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-bottom:30px;}
+.tool-btn { padding:15px 25px; border:none; border-radius:12px; background:#b4d4ff; cursor:pointer; font-size:16px;}
+.tool-btn:hover { background:#a6c8ff;}
+#toolArea { margin:20px auto; padding:20px; max-width:500px; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+input { margin:10px 0; }

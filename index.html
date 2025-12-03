@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ConvTool - Full Version</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>ConvTool</h1><p>간단하고 빠른 이미지 변환 도구</p></header>
+
+<div class="container">
+    <button class="tool-btn" onclick="openTool('pngToJpg')">PNG → JPG</button>
+    <button class="tool-btn" onclick="openTool('pngToWebp')">PNG → WEBP</button>
+    <button class="tool-btn" onclick="openTool('resize')">이미지 리사이즈</button>
+    <button class="tool-btn" onclick="openTool('compress')">JPG/PNG 압축</button>
+    <button class="tool-btn" onclick="openTool('toPdf')">이미지 → PDF</button>
+</div>
+
+<section id="toolArea"></section>
+
+<footer>© 2025 ConvTool. All rights reserved.</footer>
+<script src="main.js"></script>
+</body>
+</html>

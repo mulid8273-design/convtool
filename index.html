@@ -4,101 +4,113 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ConvTool — All-in-one Image & PDF Toolkit</title>
-  <meta name="description" content="PNG↔JPG, PNG→WEBP, HEIC→JPG, Resize, Compress, Image→PDF, PDF tools — client-side" />
+  <meta name="description" content="PNG↔JPG, PNG→WEBP, HEIC→JPG, Resize, Compress, Image→PDF, PDF tools — client-side">
   <link rel="stylesheet" href="style.css">
 
   <!-- HEIC 변환 라이브러리 -->
   <script src="https://unpkg.com/heic2any/dist/heic2any.min.js"></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container">
       <h1 class="logo">ConvTool</h1>
       <nav class="nav">
-        <button data-tool="convert" class="nav-btn active">변환</button>
-        <button data-tool="edit" class="nav-btn">편집</button>
-        <button data-tool="pdf" class="nav-btn">PDF</button>
-        <button data-tool="more" class="nav-btn">더보기</button>
+        <button data-tab="convert" class="nav-btn active">변환</button>
+        <button data-tab="edit" class="nav-btn">편집</button>
+        <button data-tab="pdf" class="nav-btn">PDF</button>
+        <button data-tab="more" class="nav-btn">더보기</button>
       </nav>
     </div>
   </header>
 
   <main class="container main-grid">
 
-    <!-- 변환 탭 -->
+    <!-- 변환 -->
     <section id="convert" class="tab-panel">
       <h2>포맷 변환</h2>
       <div class="card-grid">
 
         <div class="card">
           <h3>PNG → JPG</h3>
-          <input type="file" accept="image/png" data-action="pngToJpg" class="file-input">
-          <button class="btn primary" data-action-button="pngToJpg">변환</button>
+          <input type="file" accept="image/png" class="file single" data-action="pngToJpg">
+          <button class="btn primary" data-run="pngToJpg">변환</button>
         </div>
 
         <div class="card">
           <h3>PNG → WEBP</h3>
-          <input type="file" accept="image/png" data-action="pngToWebp" class="file-input">
-          <button class="btn primary" data-action-button="pngToWebp">변환</button>
+          <input type="file" accept="image/png" class="file single" data-action="pngToWebp">
+          <button class="btn primary" data-run="pngToWebp">변환</button>
         </div>
 
         <div class="card">
           <h3>HEIC → JPG</h3>
-          <input type="file" accept=".heic,.heif,image/heic,image/heif" data-action="heicToJpg" class="file-input">
-          <button class="btn primary" data-action-button="heicToJpg">변환</button>
+          <input type="file" accept=".heic,.heif,image/heic,image/heif" class="file single" data-action="heicToJpg">
+          <button class="btn primary" data-run="heicToJpg">변환</button>
         </div>
 
         <div class="card">
-          <h3>PNG / JPG 압축</h3>
-          <input type="file" accept="image/*" data-action="compress" class="file-input">
-          <label>품질:
-            <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality>
-          </label>
-          <button class="btn primary" data-action-button="compress">압축</button>
+          <h3>PNG/JPG → 압축</h3>
+          <input type="file" accept="image/*" class="file single" data-action="compress">
+          <label>품질: <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality></label>
+          <button class="btn primary" data-run="compress">압축</button>
         </div>
 
       </div>
     </section>
 
-    <!-- 편집 탭 -->
+    <!-- 편집 -->
     <section id="edit" class="tab-panel hidden">
       <h2>이미지 편집</h2>
       <div class="card-grid">
 
         <div class="card">
           <h3>리사이즈</h3>
-          <input type="file" accept="image/*" data-action="resize" class="file-input">
+          <input type="file" accept="image/*" class="file single" data-action="resize">
           <input type="number" placeholder="너비(px)" data-width>
           <input type="number" placeholder="높이(px)" data-height>
-          <button class="btn primary" data-action-button="resize">리사이즈</button>
+          <button class="btn primary" data-run="resize">리사이즈</button>
         </div>
 
       </div>
     </section>
 
-    <!-- PDF 탭 -->
+    <!-- PDF -->
     <section id="pdf" class="tab-panel hidden">
       <h2>PDF 도구</h2>
       <div class="card-grid">
 
         <div class="card">
           <h3>이미지 → PDF</h3>
-          <input type="file" accept="image/*" multiple data-action="imagesToPdf" class="file-input">
-          <button class="btn primary" data-action-button="imagesToPdf">PDF 생성</button>
+          <input type="file" accept="image/*" class="file multi" multiple data-action="imagesToPdf">
+          <button class="btn primary" data-run="imagesToPdf">PDF 만들기</button>
+        </div>
+
+        <div class="card">
+          <h3>PDF 병합</h3>
+          <input type="file" accept="application/pdf" class="file multi" multiple data-action="pdfMerge">
+          <button class="btn primary" data-run="pdfMerge">병합</button>
         </div>
 
       </div>
     </section>
 
-    <!-- 더보기 탭 -->
+    <!-- 더보기 -->
     <section id="more" class="tab-panel hidden">
       <h2>더보기</h2>
       <div class="card-grid">
 
         <div class="card">
+          <h3>Base64 ↔ 이미지</h3>
+          <textarea id="b64area" placeholder="base64 입력"></textarea>
+          <button class="btn" id="b64toimg">Base64 → 이미지</button>
+          <button class="btn" id="imgtob64">이미지 → Base64</button>
+        </div>
+
+        <div class="card">
           <h3>EXIF 제거</h3>
-          <input type="file" accept="image/*" data-action="stripExif" class="file-input">
-          <button class="btn primary" data-action-button="stripExif">제거</button>
+          <input type="file" accept="image/*" class="file single" data-action="stripExif">
+          <button class="btn primary" data-run="stripExif">EXIF 제거</button>
         </div>
 
       </div>
@@ -113,8 +125,6 @@
   </footer>
 
   <script src="main.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

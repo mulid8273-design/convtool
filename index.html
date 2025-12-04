@@ -3,75 +3,79 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ConvTool — All-in-one Image & PDF Toolkit</title>
-  <meta name="description" content="PNG↔JPG, PNG→WEBP, HEIC→JPG, Resize, Compress, Image→PDF, PDF tools — client-side" />
+  <title>ConvTool — All-in-one Image Toolkit</title>
+  <meta name="description" content="PNG↔JPG, PNG→WEBP, Resize, Compress, Image→PDF, Base64, EXIF 제거 등 이미지 도구 모음" />
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/heic2any/dist/heic2any.min.js"></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container">
       <h1 class="logo">ConvTool</h1>
       <nav class="nav">
-        <button data-tab="convert" class="nav-btn active">변환</button>
-        <button data-tab="edit" class="nav-btn">편집</button>
-        <button data-tab="pdf" class="nav-btn">PDF</button>
-        <button data-tab="pastel" class="nav-btn">파스텔</button>
-        <button data-tab="more" class="nav-btn">더보기</button>
+        <button data-tool="convert" class="nav-btn active">변환</button>
+        <button data-tool="edit" class="nav-btn">편집</button>
+        <button data-tool="pdf" class="nav-btn">PDF</button>
+        <button data-tool="more" class="nav-btn">더보기</button>
       </nav>
     </div>
   </header>
 
   <main class="container main-grid">
 
-    <!-- 변환 -->
+    <!-- Convert -->
     <section id="convert" class="tab-panel">
       <h2>포맷 변환</h2>
-
       <div class="card-grid">
-        <div class="card">
+
+        <div class="card pastel">
           <h3>PNG → JPG</h3>
-          <input type="file" accept="image/png" data-action="pngToJpg">
-          <button data-run="pngToJpg" class="btn primary">변환</button>
+          <input type="file" accept="image/png" class="file-input single" data-action="pngToJpg">
+          <button class="btn primary" data-action-button="pngToJpg">변환</button>
         </div>
 
-        <div class="card">
+        <div class="card pastel">
           <h3>PNG → WEBP</h3>
-          <input type="file" accept="image/png" data-action="pngToWebp">
-          <button data-run="pngToWebp" class="btn primary">변환</button>
+          <input type="file" accept="image/png" class="file-input single" data-action="pngToWebp">
+          <button class="btn primary" data-action-button="pngToWebp">변환</button>
         </div>
 
-        <div class="card">
+        <div class="card pastel">
           <h3>HEIC → JPG</h3>
-          <input type="file" accept=".heic,.heif,image/heic,image/heif" data-action="heicToJpg">
-          <button data-run="heicToJpg" class="btn primary">변환</button>
+          <input type="file" accept=".heic,.heif,image/heic,image/heif" class="file-input single" data-action="heicToJpg">
+          <button class="btn primary" data-action-button="heicToJpg">변환</button>
         </div>
 
-        <div class="card">
-          <h3>PNG/JPG 압축</h3>
-          <input type="file" accept="image/*" data-action="compress">
-          <label>품질 <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality></label>
-          <button data-run="compress" class="btn primary">압축</button>
+        <div class="card pastel">
+          <h3>PNG / JPG → 압축</h3>
+          <input type="file" accept="image/*" class="file-input single" data-action="compress">
+          <label>품질: <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality></label>
+          <button class="btn primary" data-action-button="compress">압축</button>
         </div>
+
       </div>
     </section>
 
-    <!-- 편집 -->
+    <!-- Edit -->
     <section id="edit" class="tab-panel hidden">
       <h2>이미지 편집</h2>
       <div class="card-grid">
-        <div class="card">
-          <h3>이미지 리사이즈</h3>
-          <input type="file" accept="image/*" data-action="resize">
+
+        <div class="card pastel">
+          <h3>리사이즈</h3>
+          <input type="file" accept="image/*" class="file-input single" data-action="resize">
           <input type="number" placeholder="너비(px)" data-width>
           <input type="number" placeholder="높이(px)" data-height>
-          <button data-run="resize" class="btn primary">리사이즈</button>
+          <button class="btn primary" data-action-button="resize">리사이즈</button>
         </div>
 
-        <div class="card">
+        <div class="card pastel">
           <h3>이미지 크롭</h3>
-          <input type="file" accept="image/*" data-action="crop">
-          <button data-run="crop" class="btn primary">열기</button>
+          <input type="file" accept="image/*" class="file-input single" data-action="crop">
+          <button class="btn primary" data-action-button="crop">열기</button>
         </div>
+
       </div>
     </section>
 
@@ -79,35 +83,40 @@
     <section id="pdf" class="tab-panel hidden">
       <h2>PDF 도구</h2>
       <div class="card-grid">
-        <div class="card">
+
+        <div class="card pastel">
           <h3>이미지 → PDF</h3>
-          <input type="file" accept="image/*" multiple data-action="imagesToPdf">
-          <button data-run="imagesToPdf" class="btn primary">PDF 만들기</button>
+          <input type="file" accept="image/*" multiple class="file-input multi" data-action="imagesToPdf">
+          <button class="btn primary" data-action-button="imagesToPdf">PDF 만들기</button>
         </div>
+
+        <div class="card pastel">
+          <h3>PDF 병합</h3>
+          <input type="file" accept="application/pdf" multiple class="file-input multi" data-action="pdfMerge">
+          <button class="btn primary" data-action-button="pdfMerge">병합</button>
+        </div>
+
       </div>
     </section>
 
-    <!-- 파스텔 색 조합 -->
-    <section id="pastel" class="tab-panel hidden">
-      <h2>파스텔 컬러 생성</h2>
-      <div class="card-grid">
-        <div class="card pastel-card">
-          <h3>파스텔 컬러</h3>
-          <button id="genPastel" class="btn primary">생성</button>
-          <div id="pastelBox" class="pastel-box">#D7C7FF</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 더보기 -->
+    <!-- More -->
     <section id="more" class="tab-panel hidden">
-      <h2>기타 도구</h2>
+      <h2>더보기</h2>
       <div class="card-grid">
-        <div class="card">
-          <h3>EXIF 제거</h3>
-          <input type="file" accept="image/*" data-action="stripExif">
-          <button data-run="stripExif" class="btn primary">제거</button>
+
+        <div class="card pastel">
+          <h3>Base64 변환</h3>
+          <textarea id="base64area" placeholder="Base64 입력"></textarea>
+          <button class="btn" id="b64toimg">Base64 → 이미지</button>
+          <button class="btn" id="imgtob64">이미지 → Base64</button>
         </div>
+
+        <div class="card pastel">
+          <h3>EXIF 제거</h3>
+          <input type="file" accept="image/*" class="file-input single" data-action="stripExif">
+          <button class="btn primary" data-action-button="stripExif">제거</button>
+        </div>
+
       </div>
     </section>
 
@@ -120,8 +129,6 @@
   </footer>
 
   <script src="main.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

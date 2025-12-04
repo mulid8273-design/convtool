@@ -1,172 +1,166 @@
-// =============== 탭 전환 ===============
+// 탭 전환
 document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    const tool = btn.dataset.tool;
-    document.querySelectorAll(".tab-panel").forEach(sec => sec.classList.add("hidden"));
-    document.getElementById(tool).classList.remove("hidden");
+    document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.add("hidden"));
+    document.getElementById(btn.dataset.tool).classList.remove("hidden");
   });
 });
 
-// =============== 파일 읽기 ===============
-function readImage(file) {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = e => resolve(e.target.result);
-    reader.readAsDataURL(file);
+// 파일 처리 공용 함수
+function fileFromInput(input) {
+  return input.files?.[0] || null;
+}
+
+// 다운로드
+function download(name, blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// PNG → JPG
+async function convertPngToJpg(file) {
+  const img = await loadImage(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0);
+  return new Promise(res => canvas.toBlob(res, "image/jpeg", 0.92));
+}
+
+// PNG → WEBP
+async function convertPngToWebp(file) {
+  const img = await loadImage(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  return new Promise(res => canvas.toBlob(res, "image/webp", 0.92));
+}
+
+// HEIC → JPG
+async function convertHeicToJpg(file) {
+  return heic2any({
+    blob: file,
+    toType: "image/jpeg",
+    quality: 0.9,
   });
 }
 
-// =============== PNG → JPG ===============
-async function pngToJpg(file) {
-  const imgData = await readImage(file);
-  return await convertImage(imgData, "image/jpeg", 0.92);
+// 이미지 로드
+function loadImage(file) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => res(img);
+    img.src = URL.createObjectURL(file);
+  });
 }
 
-// =============== PNG → WEBP ===============
-async function pngToWebp(file) {
-  const imgData = await readImage(file);
-  return await convertImage(imgData, "image/webp", 0.9);
-}
-
-// =============== HEIC → JPG ===============
-async function heicToJpg(file) {
-  const blob = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 });
-  return URL.createObjectURL(blob);
-}
-
-// =============== 이미지 압축 ===============
+// 압축
 async function compressImage(file, quality) {
-  const imgData = await readImage(file);
-  return await convertImage(imgData, "image/jpeg", quality);
+  const img = await loadImage(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  return new Promise(res => canvas.toBlob(res, "image/jpeg", quality));
 }
 
-// 공용 변환 함수
-async function convertImage(src, type, quality) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      resolve(canvas.toDataURL(type, quality));
-    };
-    img.src = src;
-  });
+// 리사이즈
+async function resizeImage(file, w, h) {
+  const img = await loadImage(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, w, h);
+  return new Promise(res => canvas.toBlob(res, "image/png"));
 }
 
-// =============== 리사이즈 ===============
-async function resizeImage(file, width, height) {
-  const src = await readImage(file);
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      canvas.getContext("2d").drawImage(img, 0, 0, width, height);
-      resolve(canvas.toDataURL("image/png"));
-    };
-    img.src = src;
-  });
-}
-
-// =============== EXIF 제거 ===============
-async function stripExif(file) {
-  const src = await readImage(file);
-  return await convertImage(src, "image/jpeg", 0.92);
-}
-
-// =============== 이미지 → PDF ===============
+// 이미지 → PDF
 async function imagesToPdf(files) {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
+  const pdf = new window.jspdf.jsPDF();
+  let first = true;
 
-  for (let i = 0; i < files.length; i++) {
-    const imgData = await readImage(files[i]);
+  for (const f of files) {
+    const img = await loadImage(f);
+    const imgData = await fileToBase64(f);
 
-    if (i > 0) pdf.addPage();
-    pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
+    if (!first) pdf.addPage();
+    first = false;
+
+    pdf.addImage(imgData, "JPEG", 10, 10, 190, 0);
   }
-
-  pdf.save("result.pdf");
+  return pdf;
 }
 
-// =============== PDF 병합(간단) ===============
-async function pdfMerge(files) {
-  alert("🔧 간단 병합은 준비 중입니다.\n이미지는 정상 작동합니다!");
+function fileToBase64(file) {
+  return new Promise(res => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.readAsDataURL(file);
+  });
 }
 
-// =============== 버튼 바인딩 ===============
+// EXIF 제거
+async function stripExif(file) {
+  const img = await loadImage(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  return new Promise(res => canvas.toBlob(res, "image/jpeg", 0.9));
+}
+
+// 버튼 이벤트 연결
 document.querySelectorAll("[data-action-button]").forEach(btn => {
   btn.addEventListener("click", async () => {
     const action = btn.dataset.actionButton;
-    const input = document.querySelector(`[data-action="${action}"]`);
+    const panel = btn.closest(".card");
+    const input = panel.querySelector(".file-input");
+    const file = fileFromInput(input);
 
-    if (!input || !input.files.length) {
-      alert("파일을 선택해주세요!");
-      return;
-    }
+    if (!file) return alert("파일을 선택하세요!");
 
-    const file = input.files[0];
-
+    // 기능 매핑
     if (action === "pngToJpg") {
-      const out = await pngToJpg(file);
-      download(out, "converted.jpg");
+      download("converted.jpg", await convertPngToJpg(file));
     }
-
     if (action === "pngToWebp") {
-      const out = await pngToWebp(file);
-      download(out, "converted.webp");
+      download("converted.webp", await convertPngToWebp(file));
     }
-
     if (action === "heicToJpg") {
-      const out = await heicToJpg(file);
-      downloadURL(out, "converted.jpg");
+      const blob = await convertHeicToJpg(file);
+      download("converted.jpg", blob);
     }
-
     if (action === "compress") {
-      const quality = document.querySelector("[data-quality]").value;
-      const out = await compressImage(file, quality);
-      download(out, "compressed.jpg");
+      const quality = Number(panel.querySelector("[data-quality]").value);
+      download("compressed.jpg", await compressImage(file, quality));
     }
-
     if (action === "resize") {
-      const w = document.querySelector("[data-width]").value;
-      const h = document.querySelector("[data-height]").value;
-      const out = await resizeImage(file, w, h);
-      download(out, "resized.png");
+      const w = Number(panel.querySelector("[data-width]").value);
+      const h = Number(panel.querySelector("[data-height]").value);
+      download("resized.png", await resizeImage(file, w, h));
     }
-
-    if (action === "stripExif") {
-      const out = await stripExif(file);
-      download(out, "noexif.jpg");
-    }
-
     if (action === "imagesToPdf") {
-      await imagesToPdf(input.files);
+      const files = input.files;
+      const pdf = await imagesToPdf(files);
+      pdf.save("images.pdf");
+    }
+    if (action === "stripExif") {
+      download("no-exif.jpg", await stripExif(file));
     }
   });
 });
-
-// =============== 다운로드 도구 ===============
-
-// Base64 다운로드
-function download(dataUrl, filename) {
-  const a = document.createElement("a");
-  a.href = dataUrl;
-  a.download = filename;
-  a.click();
-}
-
-// Blob URL 다운로드
-function downloadURL(url, filename) {
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-}

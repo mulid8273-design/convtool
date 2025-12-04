@@ -3,13 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>ConvTool — All-in-one Image Toolkit</title>
-  <meta name="description" content="PNG↔JPG, PNG→WEBP, Resize, Compress, Image→PDF, Base64, EXIF 제거 등 이미지 도구 모음" />
+
+  <!-- SEO 최적화 설명 -->
+  <meta name="description"
+        content="PNG JPG 변환, WEBP 변환, 이미지 압축, 리사이즈, 이미지 PDF 변환 등 모든 기능을 브라우저에서 직접 처리하는 무료 이미지 도구 ConvTool. 파일을 서버에 업로드하지 않아 안전합니다.">
+
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/heic2any/dist/heic2any.min.js"></script>
 </head>
 
 <body>
+
   <header class="site-header">
     <div class="container">
       <h1 class="logo">ConvTool</h1>
@@ -28,6 +34,7 @@
     <section id="convert" class="tab-panel">
       <h2>포맷 변환</h2>
       <div class="card-grid">
+
         <div class="card pastel">
           <h3>PNG → JPG</h3>
           <input type="file" accept="image/png" class="file-input single" data-action="pngToJpg">
@@ -52,6 +59,7 @@
           <label>품질: <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality></label>
           <button class="btn primary" data-action-button="compress">압축</button>
         </div>
+
       </div>
     </section>
 
@@ -59,6 +67,7 @@
     <section id="edit" class="tab-panel hidden">
       <h2>이미지 편집</h2>
       <div class="card-grid">
+
         <div class="card pastel">
           <h3>리사이즈</h3>
           <input type="file" accept="image/*" class="file-input single" data-action="resize">
@@ -72,6 +81,7 @@
           <input type="file" accept="image/*" class="file-input single" data-action="crop">
           <button class="btn primary" data-action-button="crop">열기</button>
         </div>
+
       </div>
     </section>
 
@@ -79,6 +89,7 @@
     <section id="pdf" class="tab-panel hidden">
       <h2>PDF 도구</h2>
       <div class="card-grid">
+
         <div class="card pastel">
           <h3>이미지 → PDF</h3>
           <input type="file" accept="image/*" multiple class="file-input multi" data-action="imagesToPdf">
@@ -90,6 +101,7 @@
           <input type="file" accept="application/pdf" multiple class="file-input multi" data-action="pdfMerge">
           <button class="btn primary" data-action-button="pdfMerge">병합</button>
         </div>
+
       </div>
     </section>
 
@@ -97,6 +109,7 @@
     <section id="more" class="tab-panel hidden">
       <h2>더보기</h2>
       <div class="card-grid">
+
         <div class="card pastel">
           <h3>Base64 변환</h3>
           <textarea id="base64area" placeholder="Base64 입력"></textarea>
@@ -109,6 +122,7 @@
           <input type="file" accept="image/*" class="file-input single" data-action="stripExif">
           <button class="btn primary" data-action-button="stripExif">제거</button>
         </div>
+
       </div>
     </section>
 
@@ -130,5 +144,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>

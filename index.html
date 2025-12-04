@@ -1,13 +1,11 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ConvTool — All-in-one Image & PDF Toolkit</title>
-  <meta name="description" content="PNG↔JPG, PNG→WEBP, HEIC→JPG, Resize, Compress, Image→PDF">
+  <meta name="description" content="PNG↔JPG, PNG→WEBP, HEIC→JPG, Resize, Compress, Image→PDF, PDF tools — client-side" />
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- HEIC 변환 라이브러리 -->
   <script src="https://unpkg.com/heic2any/dist/heic2any.min.js"></script>
 </head>
 
@@ -16,86 +14,100 @@
     <div class="container">
       <h1 class="logo">ConvTool</h1>
       <nav class="nav">
-        <button data-tab="convert" class="nav-btn active">변환</button>
-        <button data-tab="edit" class="nav-btn">편집</button>
-        <button data-tab="pdf" class="nav-btn">PDF</button>
-        <button data-tab="more" class="nav-btn">더보기</button>
+        <button data-tool="convert" class="nav-btn active">변환</button>
+        <button data-tool="edit" class="nav-btn">편집</button>
+        <button data-tool="pdf" class="nav-btn">PDF</button>
+        <button data-tool="more" class="nav-btn">더보기</button>
       </nav>
     </div>
   </header>
 
   <main class="container main-grid">
-
-    <!-- Convert -->
+    <!-- Convert Tab -->
     <section id="convert" class="tab-panel">
       <h2>포맷 변환</h2>
       <div class="card-grid">
-
         <div class="card">
           <h3>PNG → JPG</h3>
-          <input type="file" accept="image/png" data-action="pngToJpg">
-          <button class="btn primary" data-run="pngToJpg">변환</button>
+          <input type="file" accept="image/png" class="file-input single" data-action="pngToJpg">
+          <button class="btn primary" data-action-button="pngToJpg">변환</button>
+          <p class="muted">투명 배경은 흰색으로 대체됩니다.</p>
         </div>
 
         <div class="card">
           <h3>PNG → WEBP</h3>
-          <input type="file" accept="image/png" data-action="pngToWebp">
-          <button class="btn primary" data-run="pngToWebp">변환</button>
+          <input type="file" accept="image/png" class="file-input single" data-action="pngToWebp">
+          <button class="btn primary" data-action-button="pngToWebp">변환</button>
+          <p class="muted">웹 최적화 형식</p>
         </div>
 
         <div class="card">
           <h3>HEIC → JPG</h3>
-          <input type="file" accept=".heic,.heif,image/heic,image/heif" data-action="heicToJpg">
-          <button class="btn primary" data-run="heicToJpg">변환</button>
+          <input type="file" accept=".heic,.heif,image/heic,image/heif" class="file-input single" data-action="heicToJpg">
+          <button class="btn primary" data-action-button="heicToJpg">변환</button>
+          <p class="muted">아이폰(HEIC) 이미지를 JPG로 변환</p>
         </div>
 
         <div class="card">
-          <h3>PNG/JPG 압축</h3>
-          <input type="file" accept="image/*" data-action="compress">
-          <label>품질: <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality></label>
-          <button class="btn primary" data-run="compress">압축</button>
+          <h3>PNG / JPG → 압축</h3>
+          <input type="file" accept="image/*" class="file-input single" data-action="compress">
+          <label>품질:
+            <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality>
+          </label>
+          <button class="btn primary" data-action-button="compress">압축</button>
+          <p class="muted">용량을 줄입니다 (손실 압축).</p>
         </div>
-
       </div>
     </section>
 
-    <!-- Edit -->
+    <!-- Edit Tab -->
     <section id="edit" class="tab-panel hidden">
       <h2>이미지 편집</h2>
       <div class="card-grid">
-
         <div class="card">
-          <h3>리사이즈</h3>
-          <input type="file" accept="image/*" data-action="resize">
+          <h3>이미지 리사이즈</h3>
+          <input type="file" accept="image/*" class="file-input single" data-action="resize">
           <input type="number" placeholder="너비(px)" data-width>
           <input type="number" placeholder="높이(px)" data-height>
-          <button class="btn primary" data-run="resize">리사이즈</button>
+          <button class="btn primary" data-action-button="resize">리사이즈</button>
         </div>
 
+        <div class="card">
+          <h3>이미지 크롭(간단)</h3>
+          <input type="file" accept="image/*" class="file-input single" data-action="crop">
+          <button class="btn primary" data-action-button="crop">열기(간단 편집)</button>
+          <p class="muted">간단한 크롭은 새 탭에서 수동으로 처리됩니다.</p>
+        </div>
       </div>
     </section>
 
-    <!-- PDF -->
+    <!-- PDF Tab -->
     <section id="pdf" class="tab-panel hidden">
       <h2>PDF 도구</h2>
       <div class="card-grid">
-
         <div class="card">
           <h3>이미지 → PDF</h3>
-          <input type="file" accept="image/*" multiple data-action="imagesToPdf">
-          <button class="btn primary" data-run="imagesToPdf">PDF 만들기</button>
+          <input type="file" accept="image/*" class="file-input multi" data-action="imagesToPdf" multiple>
+          <button class="btn primary" data-action-button="imagesToPdf">PDF 만들기</button>
+          <p class="muted">여러 이미지를 하나의 PDF로 저장</p>
         </div>
 
+        <div class="card">
+          <h3>PDF 병합(간단)</h3>
+          <input type="file" accept="application/pdf" class="file-input multi" data-action="pdfMerge" multiple>
+          <button class="btn primary" data-action-button="pdfMerge">병합</button>
+          <p class="muted">간단 합치기 기능</p>
+        </div>
       </div>
     </section>
 
-    <!-- More -->
+    <!-- More Tab -->
     <section id="more" class="tab-panel hidden">
       <h2>더보기</h2>
       <div class="card-grid">
         <div class="card">
           <h3>Base64 ↔ 이미지</h3>
-          <textarea id="base64area" placeholder="base64 입력"></textarea>
+          <textarea id="base64area" placeholder="여기에 base64 붙여넣기"></textarea>
           <div class="row">
             <button class="btn" id="b64toimg">Base64 → 이미지</button>
             <button class="btn" id="imgtob64">이미지 → Base64</button>
@@ -104,13 +116,11 @@
 
         <div class="card">
           <h3>EXIF 제거</h3>
-          <input type="file" accept="image/*" data-action="stripExif">
-          <button class="btn primary" data-run="stripExif">EXIF 제거</button>
+          <input type="file" accept="image/*" class="file-input single" data-action="stripExif">
+          <button class="btn primary" data-action-button="stripExif">EXIF 제거</button>
         </div>
-
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
@@ -119,7 +129,7 @@
     </div>
   </footer>
 
-  <script src="js/app.js"></script>
+  <script src="js/main.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>

@@ -1,76 +1,67 @@
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #f7f8fc;
-  color: #333;
+  font-family: "Pretendard", sans-serif;
+  background: #fafafa;
+  color: #222;
 }
 
-.container {
-  width: 95%;
-  max-width: 1100px;
-  margin: auto;
-}
-
-.site-header {
+header {
+  padding: 12px 20px;
   background: #ffffff;
   border-bottom: 1px solid #ddd;
-  padding: 15px 0;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.nav {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-btn {
-  padding: 8px 12px;
+  margin-right: 8px;
+  padding: 8px 14px;
   border: none;
-  background: #e6e6e6;
+  background: #eee;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .nav-btn.active {
-  background: #8cc9ff;
-  color: white;
+  background: #4b7bec;
+  color: #fff;
 }
 
-.main-grid {
-  margin-top: 30px;
+.nav-btn.pastel {
+  background: #ffd7e0;
+  color: #d6336c;
+  font-weight: bold;
+}
+
+/* 숨김 */
+.hidden {
+  display: none;
+}
+
+main {
+  padding: 20px;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
-  gap: 20px;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .card {
   background: white;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
 }
 
-.btn {
-  padding: 10px 15px;
+button {
+  padding: 8px 16px;
+  border-radius: 6px;
   border: none;
-  border-radius: 10px;
   cursor: pointer;
-  background: #ddd;
-}
-
-.btn.primary {
-  background: #7ab6ff;
+  background: #4b7bec;
   color: white;
-}
-
-.hidden {
-  display: none;
+  margin-top: 8px;
 }

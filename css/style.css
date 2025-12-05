@@ -1,96 +1,14 @@
-/* 전체 레이아웃 */
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-/* 헤더 */
-header {
-    background-color: #4a90e2;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2rem;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* 메인 섹션 */
-main {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-/* 각 변환 섹션 */
-section {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-section h2 {
-    margin-top: 0;
-    color: #4a90e2;
-}
-
-/* 파일 선택 버튼 */
-input[type="file"] {
-    margin-bottom: 10px;
-}
-
-/* 변환/다운로드 버튼 */
-button {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #357ABD;
-}
-
-a.download-btn {
-    background-color: #50E3C2;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a.download-btn:hover {
-    background-color: #3CB89D;
-}
-
-/* 푸터 */
-footer {
-    text-align: center;
-    padding: 15px 0;
-    background-color: #f1f1f1;
-    margin-top: 30px;
-    color: #777;
-}
+body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; margin:0; padding:0; color:#333; }
+header { background:#4a90e2; color:white; padding:20px 0; text-align:center; }
+header h1 { margin:0; font-size:2rem; }
+nav a { color:white; text-decoration:none; margin:0 10px; font-weight:bold; }
+nav a:hover { text-decoration:underline; }
+main { max-width:900px; margin:30px auto; padding:0 20px; }
+section { background:white; padding:20px; margin-bottom:20px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+section h2 { margin-top:0; color:#4a90e2; }
+input[type="file"] { margin-bottom:10px; }
+button { background:#4a90e2; color:white; border:none; padding:10px 20px; margin-right:10px; border-radius:8px; cursor:pointer; font-weight:bold; }
+button:hover { background:#357ABD; }
+a.download-btn { background:#50E3C2; color:white; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold; }
+a.download-btn:hover { background:#3CB89D; }
+footer { text-align:center; padding:15px 0; background:#f1f1f1; margin-top:30px; color:#777; }

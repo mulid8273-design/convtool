@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 메인 페이지 -->
   <url>
     <loc>https://mulid8273-design.github.io/</loc>
+    <priority>1.0</priority>
   </url>
-
-  <!-- 블로그 목록 -->
-  <url>
-    <loc>https://mulid8273-design.github.io/blog/</loc>
-  </url>
-
-  <!-- 블로그 글 -->
-  <url>
-    <loc>https://mulid8273-design.github.io/blog/first-update.html</loc>
-  </url>
-  <url>
-    <loc>https://mulid8273-design.github.io/blog/updates-2025-02.html</loc>
-  </url>
-
-  <!-- 정책 / FAQ / 문의 -->
   <url>
     <loc>https://mulid8273-design.github.io/privacy.html</loc>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mulid8273-design.github.io/faq.html</loc>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mulid8273-design.github.io/contact.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mulid8273-design.github.io/blog/</loc>
+    <priority>0.7</priority>
   </url>
 </urlset>

@@ -1,160 +1,166 @@
-/* ------------------------------
-   기본 리셋 & 공통 스타일
------------------------------- */
+/* =========================
+   기본 리셋
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
 }
 
 body {
-  background: #f8f9fc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f4f8;
   color: #333;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
+a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   컨테이너
+========================= */
 .container {
   width: 90%;
-  max-width: 1000px;
-  margin: auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* ------------------------------
-   상단 헤더
------------------------------- */
+/* =========================
+   헤더
+========================= */
 .site-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e4e4e4;
-  padding: 12px 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  background: linear-gradient(90deg, #4a90e2, #50e3c2);
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: 700;
+.site-header .logo {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .nav {
-  margin-top: 10px;
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  gap: 20px;
 }
 
 .nav-btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: #ececec;
+  background: rgba(255,255,255,0.2);
   border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
 }
-
+.nav-btn.active,
 .nav-btn:hover {
-  background: #dcdcdc;
+  background: rgba(255,255,255,0.5);
 }
 
-.nav-btn.active {
-  background: #7db8ff;
-  color: #fff;
-}
-
-/* ------------------------------
-   메인 그리드
------------------------------- */
+/* =========================
+   메인 / 카드 그리드
+========================= */
 .main-grid {
-  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin-bottom: 50px;
 }
 
-/* 탭 숨김 */
-.tab-panel.hidden {
-  display: none;
-}
-
-/* ------------------------------
-   카드 스타일
------------------------------- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .card {
-  background: #ffffff;
-  padding: 18px;
-  border-radius: 14px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
-  border: 1px solid #eee;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
 }
 
 .card h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #333;
 }
 
-.card p.muted {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #777;
-}
-
-/* ------------------------------
-   버튼 스타일
------------------------------- */
-.btn {
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: #dcdcdc;
-  font-weight: 600;
-  transition: 0.2s;
-}
-
-.btn:hover {
-  background: #c8c8c8;
-}
-
-.btn.primary {
-  background: #7db8ff;
-  color: #fff;
-}
-
-.btn.primary:hover {
-  background: #5ca6ff;
-}
-
-/* ------------------------------
-   파일 입력
------------------------------- */
-.file-input {
+.card label {
   display: block;
   margin: 10px 0;
 }
 
-/* ------------------------------
-   Base64 도구
------------------------------- */
-#base64area {
+.card input[type="file"],
+.card input[type="number"],
+.card input[type="range"],
+.card textarea {
   width: 100%;
-  height: 140px;
+  padding: 8px;
   margin-bottom: 10px;
-  padding: 10px;
-  resize: vertical;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-/* ------------------------------
+/* =========================
+   버튼
+========================= */
+.btn {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.btn.primary {
+  background: #4a90e2;
+  color: white;
+}
+.btn.primary:hover {
+  background: #357ABD;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   탭 / 숨김
+========================= */
+.hidden {
+  display: none;
+}
+
+/* =========================
    푸터
------------------------------- */
+========================= */
 .site-footer {
-  margin-top: 40px;
-  padding: 20px 0;
   text-align: center;
-  color: #777;
-  font-size: 14px;
+  padding: 20px 0;
+  background: #eee;
+  font-size: 0.9rem;
+  margin-top: 50px;
+}
+.site-footer a {
+  margin: 0 5px;
 }

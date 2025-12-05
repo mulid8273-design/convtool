@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mulid8273-design.github.io/sitemap.xml

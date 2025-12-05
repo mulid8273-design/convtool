@@ -19,37 +19,29 @@
 </header>
 
 <main>
-  <!-- 이미지 변환 -->
   <section id="image-convert">
     <h2>🖼️ 이미지 변환</h2>
-    <p>PNG↔JPG, PNG↔WEBP, HEIC→JPG 지원</p>
     <input type="file" id="imageInput" accept="image/*">
     <button id="imageConvertBtn">변환</button>
     <a id="imageDownload" style="display:none;">다운로드</a>
   </section>
 
-  <!-- 동영상 변환 -->
   <section id="video-convert">
     <h2>🎬 동영상 변환</h2>
-    <p>MP4↔WebM 지원</p>
     <input type="file" id="videoInput" accept="video/*">
     <button id="videoConvertBtn">변환</button>
     <a id="videoDownload" style="display:none;">다운로드</a>
   </section>
 
-  <!-- 오디오 변환 -->
   <section id="audio-convert">
     <h2>🎵 오디오 변환</h2>
-    <p>MP3↔WAV 지원</p>
     <input type="file" id="audioInput" accept="audio/*">
     <button id="audioConvertBtn">변환</button>
     <a id="audioDownload" style="display:none;">다운로드</a>
   </section>
 
-  <!-- PDF / PPT 변환 -->
   <section id="pdf-convert">
-    <h2>📄 PDF 변환</h2>
-    <p>이미지→PDF, PPT→PDF (웹 폰트 포함, 폰트 깨짐 방지)</p>
+    <h2>📄 PDF / PPT 변환</h2>
     <input type="file" id="pdfInput" accept=".pdf,.png,.jpg,.jpeg,.ppt,.pptx">
     <button id="pdfConvertBtn">변환</button>
     <a id="pdfDownload" style="display:none;">다운로드</a>
@@ -65,5 +57,6 @@
 <script src="video.js"></script>
 <script src="audio.js"></script>
 <script src="pdf.js"></script>
+<script src="ppt.js"></script>
 </body>
 </html>

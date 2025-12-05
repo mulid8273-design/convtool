@@ -2,13 +2,12 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>블로그 - ConvTool 업데이트 & 공지</title>
+  <title>ConvTool 블로그</title>
   <meta name="description" content="ConvTool 업데이트, 공지사항, 기능 추가 안내를 확인하세요.">
   <link rel="stylesheet" href="blog.css">
 </head>
 
 <body>
-
 <header class="blog-header">
   <h1>ConvTool 블로그</h1>
   <p>업데이트 · 기능추가 · 공지사항</p>
@@ -20,33 +19,17 @@
 
 <script>
 const posts = [
-  {
-    title: "[업데이트] 이미지 변환 속도 개선",
-    url: "first-update.html",
-    date: "2025-02-02"
-  },
-  {
-    title: "2025년 2월 기능 업데이트",
-    url: "updates-2025-02.html",
-    date: "2025-02-10"
-  }
+  { title: "[업데이트] 이미지 변환 속도 개선", url: "first-update.html", date: "2025-02-02" },
+  { title: "2025년 2월 기능 업데이트", url: "updates-2025-02.html", date: "2025-02-10" }
 ];
 
-// 자동 목록 생성
 const list = document.getElementById("post-list");
 posts.sort((a,b)=> new Date(b.date) - new Date(a.date));
-
 posts.forEach(p => {
   const li = document.createElement("li");
-  li.innerHTML = `
-    <a href="${p.url}">
-      <h3>${p.title}</h3>
-      <time>${p.date}</time>
-    </a>
-  `;
+  li.innerHTML = `<a href="${p.url}"><h3>${p.title}</h3><time>${p.date}</time></a>`;
   list.appendChild(li);
 });
 </script>
-
 </body>
 </html>

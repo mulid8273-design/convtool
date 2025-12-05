@@ -14,79 +14,44 @@ header, footer {
     padding: 20px 10px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2rem;
-}
+header h1 { margin: 0; font-size: 2rem; }
 
-nav {
-    margin-top: 10px;
-}
-
+nav { margin-top: 10px; }
 nav a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;
 }
-
-nav a:hover {
-    text-decoration: underline;
-}
+nav a:hover { text-decoration: underline; }
 
 /* 메인 영역 */
 main {
     padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
-/* 섹션 카드 스타일 */
+@media (min-width: 768px) { main { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1200px) { main { grid-template-columns: repeat(3, 1fr); } }
+
+/* 섹션 카드 */
 section {
     background-color: #fff;
     border-radius: 15px;
-    padding: 20px;
+    padding: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+section:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
 
-section:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-}
-
-/* 섹션 제목과 아이콘 */
 section h2 {
-    display: flex;
-    align-items: center;
     font-size: 1.5rem;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-#image-convert h2::before {
-    content: "🖼️";
-    display: inline-block;
-    margin-right: 10px;
-}
-
-#video-convert h2::before {
-    content: "🎬";
-    display: inline-block;
-    margin-right: 10px;
-}
-
-#audio-convert h2::before {
-    content: "🎵";
-    display: inline-block;
-    margin-right: 10px;
-}
-
-#pdf-convert h2::before {
-    content: "📄";
-    display: inline-block;
-    margin-right: 10px;
-}
+section p { margin-bottom: 15px; }
 
 /* 버튼 스타일 */
 button {
@@ -99,76 +64,27 @@ button {
     font-size: 1rem;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
-
-button:hover {
-    background-color: #155bb5;
-    transform: translateY(-2px);
-}
+button:hover { background-color: #155bb5; transform: translateY(-2px); }
 
 /* 다운로드 링크 */
-a#imageDownload {
+a {
     display: inline-block;
     margin-top: 10px;
-    background-color: #34a853;
-    color: white;
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 6px;
+    color: white;
     transition: background-color 0.2s ease;
 }
-
+a#imageDownload { background-color: #34a853; }
 a#imageDownload:hover { background-color: #2c8c46; }
-
-a#videoDownload {
-    display: inline-block;
-    margin-top: 10px;
-    background-color: #fbbc05;
-    color: white;
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-}
-
+a#videoDownload { background-color: #fbbc05; }
 a#videoDownload:hover { background-color: #d99e04; }
-
-a#audioDownload {
-    display: inline-block;
-    margin-top: 10px;
-    background-color: #ea4335;
-    color: white;
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-}
-
+a#audioDownload { background-color: #ea4335; }
 a#audioDownload:hover { background-color: #c1271f; }
 
-/* 파일 입력 꾸미기 */
-input[type="file"] {
-    display: block;
-    margin-top: 10px;
-}
+/* 파일 입력 */
+input[type="file"] { display: block; margin-bottom: 10px; }
 
 /* 푸터 */
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-/* 반응형 */
-@media (min-width: 768px) {
-    main {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-    }
-}
-
-@media (min-width: 1200px) {
-    main {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+footer p { margin: 0; font-size: 0.9rem; opacity: 0.8; }

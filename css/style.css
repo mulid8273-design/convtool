@@ -1,4 +1,4 @@
-b/* 공통 */
+/* 공통 */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -64,11 +64,28 @@ section h2 {
     margin-bottom: 15px;
 }
 
-section h2::before {
-    content: "📁"; /* 기본 아이콘, 섹션별로 바꾸기 가능 */
+#image-convert h2::before {
+    content: "🖼️";
     display: inline-block;
     margin-right: 10px;
-    font-size: 1.5rem;
+}
+
+#video-convert h2::before {
+    content: "🎬";
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#audio-convert h2::before {
+    content: "🎵";
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#pdf-convert h2::before {
+    content: "📄";
+    display: inline-block;
+    margin-right: 10px;
 }
 
 /* 버튼 스타일 */
@@ -89,7 +106,7 @@ button:hover {
 }
 
 /* 다운로드 링크 */
-a#imageDownload, a#videoDownload, a#audioDownload {
+a#imageDownload {
     display: inline-block;
     margin-top: 10px;
     background-color: #34a853;
@@ -100,9 +117,33 @@ a#imageDownload, a#videoDownload, a#audioDownload {
     transition: background-color 0.2s ease;
 }
 
-a#imageDownload:hover, a#videoDownload:hover, a#audioDownload:hover {
-    background-color: #2c8c46;
+a#imageDownload:hover { background-color: #2c8c46; }
+
+a#videoDownload {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #fbbc05;
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
 }
+
+a#videoDownload:hover { background-color: #d99e04; }
+
+a#audioDownload {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #ea4335;
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+a#audioDownload:hover { background-color: #c1271f; }
 
 /* 파일 입력 꾸미기 */
 input[type="file"] {

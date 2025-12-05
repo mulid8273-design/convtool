@@ -1,9 +1,7 @@
 // pdf.js
-import { jsPDF } from 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-
 document.getElementById("pdfConvertBtn").addEventListener("click", async () => {
   const file = document.getElementById("pdfInput").files[0];
-  if(!file){ alert("파일을 선택해주세요!"); return; }
+  if(!file){ alert("파일 선택 필요"); return; }
 
   const reader = new FileReader();
   reader.onload = (e)=>{
@@ -16,7 +14,6 @@ document.getElementById("pdfConvertBtn").addEventListener("click", async () => {
       img.onload = ()=>{
         const ratio = Math.min(595/img.width, 842/img.height);
         pdf.addImage(img,'PNG',0,0,img.width*ratio,img.height*ratio);
-
         const link = document.getElementById("pdfDownload");
         link.href = pdf.output('bloburl');
         link.download = `converted_${file.name.split('.')[0]}.pdf`;
@@ -32,8 +29,10 @@ document.getElementById("pdfConvertBtn").addEventListener("click", async () => {
       link.style.display = 'inline';
       link.textContent = '다운로드';
     } else {
-      alert("지원하지 않는 파일 형식입니다.");
+      alert("지원하지 않는 파일 형식");
     }
   };
 
-  if(file.type.startsWith('image/')){
+  if(file.type.startsWith('image/')) reader.readAsDataURL(file);
+  else reader.readAsArrayBuffer(file);
+});

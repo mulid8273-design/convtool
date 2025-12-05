@@ -1,184 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>MULID 이미지 변환기</title>
-  <meta name="description" content="PNG, JPG, WEBP, HEIC 등 이미지 변환부터 압축, PDF 변환까지 가능한 무료 올인원 이미지 도구">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="MULID 이미지 변환기">
-  <meta property="og:description" content="빠르고 쉬운 무료 이미지 변환 사이트">
-  <meta property="og:image" content="https://mulid8273-design.github.io/icons/icon-512.png">
-  <meta property="og:url" content="https://mulid8273-design.github.io/">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MULID 이미지 변환기">
-  <meta name="twitter:description" content="PNG, JPG, HEIC 변환 무료 도구">
-  <meta name="twitter:image" content="https://mulid8273-design.github.io/icons/icon-512.png">
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "WebApplication",
-    "name": "MULID 이미지 변환기",
-    "url": "https://mulid8273-design.github.io/",
-    "description": "PNG, JPG, HEIC, WEBP 변환 무료 도구 제공",
-    "applicationCategory": "Utility",
-    "operatingSystem": "All",
-    "image": "https://mulid8273-design.github.io/icons/icon-512.png"
-  }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MULID 이미지 변환기</title>
+<meta name="description" content="PNG, JPG, WEBP, HEIC 등 이미지 변환 올인원 웹툴">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MULID 이미지 변환기",
+  "url": "https://mulid8273-design.github.io/"
+}
+</script>
+<link rel="stylesheet" href="style.css">
+<script src="main.js"></script>
 </head>
-
 <body>
-<header class="site-header">
-  <div class="container">
-    <h1 class="logo">MULID 이미지 변환기</h1>
-    <nav class="nav">
-      <button data-tool="convert" class="nav-btn active">변환</button>
-      <button data-tool="edit" class="nav-btn">편집</button>
-      <button data-tool="pdf" class="nav-btn">PDF</button>
-      <button data-tool="more" class="nav-btn">더보기</button>
-    </nav>
-  </div>
+<header>
+  <h1>MULID 이미지 변환기</h1>
+  <nav>
+    <a href="index.html">홈</a>
+    <a href="blog/index.html">블로그</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">문의하기</a>
+  </nav>
 </header>
 
-<main class="container main-grid">
-
-  <!-- 변환 탭 -->
-  <section id="convert" class="tab-panel">
-    <h2>이미지 변환 기능</h2>
-    <div class="card-grid">
-
-      <div class="card pastel">
-        <h3>PNG → JPG</h3>
-        <input type="file" accept="image/png" class="file-input single" data-action="pngToJpg">
-        <button class="btn primary" data-action-button="pngToJpg">변환</button>
-      </div>
-
-      <div class="card pastel">
-        <h3>PNG → WEBP</h3>
-        <input type="file" accept="image/png" class="file-input single" data-action="pngToWebp">
-        <button class="btn primary" data-action-button="pngToWebp">변환</button>
-      </div>
-
-      <div class="card pastel">
-        <h3>HEIC → JPG</h3>
-        <input type="file" accept=".heic,.heif,image/heic,image/heif" class="file-input single" data-action="heicToJpg">
-        <button class="btn primary" data-action-button="heicToJpg">변환</button>
-      </div>
-
-      <div class="card pastel">
-        <h3>PNG / JPG → 압축</h3>
-        <input type="file" accept="image/*" class="file-input single" data-action="compress">
-        <label>품질: <input type="range" min="0.1" max="1" step="0.1" value="0.8" data-quality></label>
-        <button class="btn primary" data-action-button="compress">압축</button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 편집 탭 -->
-  <section id="edit" class="tab-panel hidden">
-    <h2>이미지 편집</h2>
-    <div class="card-grid">
-
-      <div class="card pastel">
-        <h3>리사이즈</h3>
-        <input type="file" accept="image/*" class="file-input single" data-action="resize">
-        <input type="number" placeholder="너비(px)" data-width>
-        <input type="number" placeholder="높이(px)" data-height>
-        <button class="btn primary" data-action-button="resize">리사이즈</button>
-      </div>
-
-      <div class="card pastel">
-        <h3>이미지 크롭</h3>
-        <input type="file" accept="image/*" class="file-input single" data-action="crop">
-        <button class="btn primary" data-action-button="crop">열기</button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PDF 탭 -->
-  <section id="pdf" class="tab-panel hidden">
-    <h2>PDF 도구</h2>
-    <div class="card-grid">
-
-      <div class="card pastel">
-        <h3>이미지 → PDF</h3>
-        <input type="file" accept="image/*" multiple class="file-input multi" data-action="imagesToPdf">
-        <button class="btn primary" data-action-button="imagesToPdf">PDF 만들기</button>
-      </div>
-
-      <div class="card pastel">
-        <h3>PDF 병합</h3>
-        <input type="file" accept="application/pdf" multiple class="file-input multi" data-action="pdfMerge">
-        <button class="btn primary" data-action-button="pdfMerge">병합</button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 더보기 탭 -->
-  <section id="more" class="tab-panel hidden">
-    <h2>더보기</h2>
-    <div class="card-grid">
-
-      <div class="card pastel">
-        <h3>Base64 변환</h3>
-        <textarea id="base64area" placeholder="Base64 입력"></textarea>
-        <button class="btn" id="b64toimg">Base64 → 이미지</button>
-        <button class="btn" id="imgtob64">이미지 → Base64</button>
-      </div>
-
-      <div class="card pastel">
-        <h3>EXIF 제거</h3>
-        <input type="file" accept="image/*" class="file-input single" data-action="stripExif">
-        <button class="btn primary" data-action-button="stripExif">제거</button>
-      </div>
-
-    </div>
-  </section>
-
+<main>
+  <p>PNG, JPG, WEBP, HEIC 등 모든 이미지 변환 기능 제공</p>
+  <a href="blog/index.html">블로그 보기</a>
 </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <small>
-      © <span id="year"></span> MULID DESIGN · 
-      <a href="privacy.html">개인정보처리방침</a> · 
-      <a href="contact.html">문의하기</a> · 
-      <a href="faq.html">FAQ</a>
-    </small>
-  </div>
+<footer>
+  <small>© 2025 MULID DESIGN</small>
 </footer>
-
-<script src="main.js"></script>
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // 탭 전환 스크립트
-  const tabs = document.querySelectorAll('.nav-btn');
-  const panels = document.querySelectorAll('.tab-panel');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      panels.forEach(p => p.classList.add('hidden'));
-      document.getElementById(tab.dataset.tool).classList.remove('hidden');
-    });
-  });
-</script>
 </body>
 </html>

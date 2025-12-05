@@ -2,40 +2,51 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ConvTool 블로그 – 업데이트 & 공지</title>
-  <meta name="description" content="ConvTool 업데이트 내역, 공지사항, 기능 개선 기록을 확인하세요.">
+  <title>블로그 - ConvTool 업데이트 & 공지</title>
+  <meta name="description" content="ConvTool 업데이트, 공지사항, 기능 추가 안내를 확인하세요.">
   <link rel="stylesheet" href="blog.css">
 </head>
 
 <body>
-  <div class="blog-container">
-    <h1>ConvTool 블로그</h1>
-    <p>업데이트 소식과 공지사항을 안내합니다.</p>
 
-    <hr>
+<header class="blog-header">
+  <h1>ConvTool 블로그</h1>
+  <p>업데이트 · 기능추가 · 공지사항</p>
+</header>
 
-    <div class="post-list">
+<main class="blog-container">
+  <ul id="post-list" class="post-list"></ul>
+</main>
 
-      <a href="updates-2025-02.html">
-        <h2>2025년 2월 업데이트 – 이미지 변환 속도 향상 & UI 개선</h2>
-        <div class="post-date">2025-02-15</div>
-      </a>
+<script>
+const posts = [
+  {
+    title: "[업데이트] 이미지 변환 속도 개선",
+    url: "first-update.html",
+    date: "2025-02-02"
+  },
+  {
+    title: "2025년 2월 기능 업데이트",
+    url: "updates-2025-02.html",
+    date: "2025-02-10"
+  }
+];
 
-      <a href="first-update.html">
-        <h2>ConvTool 첫 업데이트 & 블로그 기능 오픈</h2>
-        <div class="post-date">2025-02-10</div>
-      </a>
+// 자동 목록 생성
+const list = document.getElementById("post-list");
+posts.sort((a,b)=> new Date(b.date) - new Date(a.date));
 
-    </div>
+posts.forEach(p => {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <a href="${p.url}">
+      <h3>${p.title}</h3>
+      <time>${p.date}</time>
+    </a>
+  `;
+  list.appendChild(li);
+});
+</script>
 
-    <footer>
-      © <span id="year"></span> ConvTool Blog
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>

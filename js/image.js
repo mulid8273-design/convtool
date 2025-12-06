@@ -1,23 +1,32 @@
-document.getElementById("imageConvertBtn").addEventListener("click", () => {
-    const file = document.getElementById("imageInput").files[0];
-    if(!file){ alert("이미지를 선택해주세요!"); return; }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = img.width; canvas.height = img.height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-            canvas.toBlob(blob => {
-                const link = document.getElementById("imageDownload");
-                link.href = URL.createObjectURL(blob);
-                link.download = "converted_" + file.name;
-                link.style.display = "inline";
-                link.textContent = "다운로드";
-            }, "image/png"); // PNG로 변환 예시
-        };
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-});
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 변환</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>이미지 변환</h1>
+    <a href="index.html">← 홈으로</a>
+</header>
+
+<div class="container">
+    <input type="file" id="imgInput" accept="image/*">
+
+    <select id="imgFormat">
+        <option value="png">PNG로 변환</option>
+        <option value="jpg">JPG로 변환</option>
+        <option value="webp">WEBP로 변환</option>
+    </select>
+
+    <button id="convertBtn">변환하기</button>
+
+    <div id="result"></div>
+</div>
+
+<script src="js/image.js"></script>
+</body>
+</html>

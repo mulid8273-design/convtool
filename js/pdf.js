@@ -1,53 +1,52 @@
-document.getElementById("fileConvertBtn").addEventListener("click", async () => {
-    const file = document.getElementById("fileInput").files[0];
-    const format = document.getElementById("fileFormat").value;
-    const result = document.getElementById("fileResult");
+import { $, downloadFile } from "./main.js";
 
-    if (!file) {
-        result.innerHTML = "<p style='color:red;'>파일을 선택하세요.</p>";
-        return;
+const input = $("fileInput");
+const convertBtn = $("fileConvertBtn");
+const format = $("fileFormat");
+const result = $("fileResult");
+
+convertBtn.addEventListener("click", async () => {
+  if (!input.files.length) {
+    result.textContent = "파일을 선택하세요.";
+    return;
+  }
+
+  const file = input.files[0];
+  const type = format.value;
+
+  if (type === "txt") {
+    result.textContent = "PDF → TXT 변환 중…";
+
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+
+    let text = "";
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const strings = content.items.map((i) => i.str).join(" ");
+      text += strings + "\n";
     }
 
-    if (format === "txt") {
-        // PDF → TXT
-        const reader = new FileReader();
-        reader.onload = async e => {
+    const blob = new Blob([text], { type: "text/plain" });
+    downloadFile(blob, "converted.txt");
 
-            // PDF.js 사용
-            const pdf = await pdfjsLib.getDocument({ data: e.target.result }).promise;
-            let text = "";
+    result.textContent = "변환 완료!";
+  }
 
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const content = await page.getTextContent();
-                text += content.items.map(t => t.str).join(" ") + "\n\n";
-            }
+  if (type === "pdf") {
+    result.textContent = "TXT → PDF 변환 중…";
 
-            const blob = new Blob([text], { type: "text/plain" });
-            const url = URL.createObjectURL(blob);
+    const text = await file.text();
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
 
-            result.innerHTML = `<a href="${url}" download="converted.txt">TXT 다운로드</a>`;
-        };
-        reader.readAsArrayBuffer(file);
-    }
+    const lines = pdf.splitTextToSize(text, 180);
+    pdf.text(lines, 15, 20);
 
-    if (format === "pdf") {
-        // TXT → PDF (jsPDF 사용)
-        const reader = new FileReader();
-        reader.onload = () => {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const lines = reader.result.split("\n");
+    pdf.save("converted.pdf");
 
-            let y = 10;
-            lines.forEach(line => {
-                doc.text(line, 10, y);
-                y += 7;
-            });
-
-            doc.save("converted.pdf");
-        };
-
-        reader.readAsText(file);
-    }
+    result.textContent = "변환 완료!";
+  }
 });

@@ -4,106 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MULID 링크 페이지</title>
-<style>
-    /* 전체 배경 - 흐릿한 앨범 아트 */
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        color: #fff;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        background: url('https://cdnimg.melon.co.kr/cm/album/images/117/08/544/11708544_500.jpg') center/cover no-repeat;
-    }
-
-    /* 흐림 효과 */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(20px);
-        background: rgba(0,0,0,0.5); /* 어둡게 보정 */
-        z-index: -1;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        margin: 25px 0;
-        letter-spacing: 1px;
-        text-shadow: 0 0 10px #ff3366;
-    }
-
-    /* 중앙 콘텐츠 */
-    .content {
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* 앨범 아트 */
-    .album-art {
-        width: 280px;
-        height: 280px;
-        border-radius: 20px;
-        margin-bottom: 25px;
-        object-fit: cover;
-        box-shadow: 0 0 30px rgba(255, 51, 102, 0.6);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .album-art:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 40px rgba(255, 51, 102, 0.8);
-    }
-
-    /* 비디오 */
-    video {
-        width: 90%;
-        max-width: 650px;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
-        margin-bottom: 25px;
-        transition: box-shadow 0.3s;
-    }
-    video.playing {
-        box-shadow: 0 0 40px #ff3366;
-    }
-
-    /* 서비스 로고 버튼 */
-    .service-links {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-    }
-    .service-links a {
-        display: inline-block;
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        overflow: hidden;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .service-links a img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-    }
-    .service-links a:hover {
-        transform: scale(1.2);
-        box-shadow: 0 0 25px #ff3366;
-    }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -139,26 +40,6 @@
     </div>
 </div>
 
-<script>
-    const video = document.getElementById('previewVideo');
-    const links = document.getElementById('serviceLinks');
-
-    // 15초 미리보기 후 링크 표시
-    video.addEventListener('timeupdate', () => {
-        if(video.currentTime >= 15) {
-            video.pause();
-            links.style.display = 'flex';
-        }
-    });
-
-    // 재생 중 glow 효과
-    video.addEventListener('play', () => {
-        video.classList.add('playing');
-    });
-    video.addEventListener('pause', () => {
-        video.classList.remove('playing');
-    });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

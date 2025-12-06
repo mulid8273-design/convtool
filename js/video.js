@@ -1,46 +1,48 @@
-// FFmpeg CDN 로드
-let ffmpegLoaded = false;
+import { $, downloadFile } from "./main.js";
+
 let ffmpeg;
+let loaded = false;
 
 async function loadFFmpeg() {
-    if (ffmpegLoaded) return;
+  if (loaded) return;
+  ffmpeg = FFmpeg.createFFmpeg({ log: true });
 
-    ffmpeg = FFmpeg.createFFmpeg({
-        log: true,
-        corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js"
-    });
-
-    await ffmpeg.load();
-    ffmpegLoaded = true;
+  await ffmpeg.load();
+  loaded = true;
 }
 
-document.getElementById("videoConvertBtn").addEventListener("click", async () => {
-    const file = document.getElementById("videoInput").files[0];
-    const format = document.getElementById("videoFormat").value;
-    const result = document.getElementById("videoResult");
+const input = $("videoInput");
+const format = $("videoFormat");
+const convertBtn = $("videoConvertBtn");
+const result = $("videoResult");
 
-    if (!file) {
-        result.innerHTML = "<p style='color:red;'>영상 파일을 선택하세요.</p>";
-        return;
-    }
+convertBtn.addEventListener("click", async () => {
+  if (!input.files.length) {
+    result.textContent = "영상을 선택해주세요.";
+    return;
+  }
 
-    await loadFFmpeg();
+  const file = input.files[0];
+  const target = format.value;
+  const outputName = `converted.${target}`;
 
-    const inputName = "input." + file.name.split(".").pop();
-    const outputName = "output." + format;
+  result.textContent = "FFmpeg 로드 중…";
 
-    await ffmpeg.FS("writeFile", inputName, await fetchFile(file));
+  await loadFFmpeg();
 
-    // 변환 실행
-    await ffmpeg.run("-i", inputName, outputName);
+  result.textContent = "영상 변환 중… 잠시만 기다려주세요.";
 
-    const data = ffmpeg.FS("readFile", outputName);
-    const blob = new Blob([data.buffer], { type: "video/" + format });
-    const url = URL.createObjectURL(blob);
+  // 파일을 FFmpeg FS에 저장
+  ffmpeg.FS("writeFile", "input", await file.arrayBuffer());
 
-    result.innerHTML = `
-        <a href="${url}" download="${outputName}" style="font-size:20px;color:blue;">
-            변환된 영상 다운로드
-        </a>
-    `;
+  // 변환 명령 실행
+  await ffmpeg.run("-i", "input", outputName);
+
+  // 결과 가져오기
+  const data = ffmpeg.FS("readFile", outputName);
+  const blob = new Blob([data.buffer], { type: `video/${target}` });
+
+  downloadFile(blob, outputName);
+
+  result.textContent = "영상 변환 완료!";
 });

@@ -1,10 +1,11 @@
-cconst video = document.getElementById('previewVideo');
-const links = document.getElementById('serviceLinks');
+const albumArt = document.getElementById('albumArt');
+const albumAudio = document.getElementById('albumAudio');
 
-// 15초 미리보기 후 링크 표시
-video.addEventListener('timeupdate', () => {
-    if(video.currentTime >= 15) {
-        video.pause();
-        links.style.display = 'flex';
+// 앨범 아트 클릭 시 재생/일시정지 토글
+albumArt.addEventListener('click', () => {
+    if(albumAudio.paused) {
+        albumAudio.play();
+    } else {
+        albumAudio.pause();
     }
 });

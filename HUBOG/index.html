@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MULID 링크 페이지</title>
+<title>휴복 - 여름잔상 링크 페이지</title>
 <style>
 body {
     font-family: 'Arial', sans-serif;
@@ -32,16 +32,11 @@ body::before {
     z-index: -1;
 }
 
-h1 {
-    font-size: 2rem;
-    margin: 20px 0;
-}
-
 .album-container {
     position: relative;
     width: 250px;
     height: 250px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .album-art {
@@ -52,11 +47,18 @@ h1 {
     cursor: pointer;
 }
 
+.album-title {
+    font-size: 50px;
+    color: #fff;
+    margin: 10px 0 20px 0;
+    font-weight: bold;
+}
+
 .service-links {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 90%;
     max-width: 400px;
 }
@@ -93,14 +95,14 @@ h1 {
 </head>
 <body>
 
-<h1>MULID 바로가기</h1>
-
 <div class="album-container">
     <img id="albumArt" src="https://image.bugsm.co.kr/album/images/original/207014/20701451.jpg?version=undefined" alt="앨범 아트" class="album-art">
     <audio id="albumAudio">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 </div>
+
+<div class="album-title">휴복 - 여름잔상</div>
 
 <div class="service-links">
     <!-- YouTube -->
